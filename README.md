@@ -34,6 +34,9 @@ AWS IoT connected relay automation for Raspberry Pi
 - `> docker build -t connollyst/rpi-aws-iot-pwm .`
 - `> docker push connollyst/rpi-aws-iot-pwm`
 
+- `> docker build -t connollyst/rpi-aws-iot-pwm:latest -t connollyst/rpi-aws-iot-pwm:v1.2.3 .`
+- `> docker push connollyst/rpi-aws-iot-pwm:latest && docker push connollyst/rpi-aws-iot-pwm:v1.2.3`
+
 ## Install Docker on Raspberry Pi
 
 - `> sudo apt-get update && sudo apt-get upgrade && sudo reboot`
