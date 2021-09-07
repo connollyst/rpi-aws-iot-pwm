@@ -2,6 +2,22 @@
 
 from PCA9685 import PCA9685
 import time
+import json
+from uuid import uuid4
+from AwsIotCore import AwsIotCore
+
+AWS_ENDPOINT = 'a12dev37b8fhwi-ats.iot.us-west-2.amazonaws.com'
+
+writer = AwsIotCore(AWS_ENDPOINT)
+writer.connect("tests-" + str(uuid4()))
+message = {
+    "address": "N/A",
+    "addressType": "N/A",
+    "name": "",
+    "module": "Motor Driver",
+    "version": "0.1",
+    "reading": {}
+}
 
 Dir = [
     'forward',
@@ -57,15 +73,22 @@ print("this is a motor driver test code")
 Motor = MotorDriver()
 
 print('Running {} @ {} for {}s'.format(direction, speed, duration))
+
+message['reading'] = {
+    "value": speed,
+    "timestamp": time.time()
+}
+writer.write('atlas', json.dumps(message, indent=4, default=str))
+
 Motor.MotorRun(0, direction, speed)
 Motor.MotorRun(1, direction, speed)
 time.sleep(duration)
 
-#print("backward 2 s")
-#Motor.MotorRun(0, 'backward', 100)
-#Motor.MotorRun(1, 'backward', 100)
-#time.sleep(2)
-
 print("Stopping.")
 Motor.MotorStop(0)
 Motor.MotorStop(1)
+message['reading'] = {
+    "value": 0,
+    "timestamp": time.time()
+}
+writer.write('atlas', json.dumps(message, indent=4, default=str))
