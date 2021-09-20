@@ -47,7 +47,7 @@ AWS IoT connected relay automation for Raspberry Pi
 ## Pull the Docker Image
 
 - `> docker pull connollyst/rpi-aws-iot-pwm:latest`
-- `> docker run --privileged connollyst/rpi-aws-iot-pwm`
+- `> docker run --restart=on-failure --privileged connollyst/rpi-aws-iot-pwm:v1.2.3 &`
 - `> docker run --device /dev/gpiomem connollyst/rpi-aws-iot-pwm`
 - `> docker run --device /dev/i2c-0 --device /dev/i2c-1 connollyst/rpi-aws-iot-pwm`
   - Doesn't work: `"/dev/i2c-0": no such file or directory`
