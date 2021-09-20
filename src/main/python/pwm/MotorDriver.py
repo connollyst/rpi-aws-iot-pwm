@@ -17,12 +17,12 @@ class MotorDriver:
         self._pwm = PCA9685(0x40, debug=False)
         self._pwm.setPWMFreq(50)
 
-    def MotorRun(self, motor, index, speed):
+    def run(self, motor, index, speed):
         if speed > 100:
             return
-        if (motor == 0):
+        if motor == 0:
             self._pwm.setDutycycle(self.PWMA, speed)
-            if (index == self.Dir[0]):
+            if index == self.Dir[0]:
                 print("#1 forward")
                 self._pwm.setLevel(self.AIN1, 0)
                 self._pwm.setLevel(self.AIN2, 1)
@@ -32,7 +32,7 @@ class MotorDriver:
                 self._pwm.setLevel(self.AIN2, 0)
         else:
             self._pwm.setDutycycle(self.PWMB, speed)
-            if (index == self.Dir[0]):
+            if index == self.Dir[0]:
                 print("#2 forward")
                 self._pwm.setLevel(self.BIN1, 0)
                 self._pwm.setLevel(self.BIN2, 1)
@@ -41,8 +41,8 @@ class MotorDriver:
                 self._pwm.setLevel(self.BIN1, 1)
                 self._pwm.setLevel(self.BIN2, 0)
 
-    def MotorStop(self, motor):
-        if (motor == 0):
+    def stop(self, motor):
+        if motor == 0:
             self._pwm.setDutycycle(self.PWMA, 0)
         else:
             self._pwm.setDutycycle(self.PWMB, 0)

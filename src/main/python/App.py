@@ -2,8 +2,8 @@ import json
 import time
 from uuid import uuid4
 
-from AwsIotCore import AwsIotCore
-from MotorDriver import MotorDriver
+from aws.AwsIotCore import AwsIotCore
+from pwm.MotorDriver import MotorDriver
 
 
 class App:
@@ -38,12 +38,12 @@ class App:
             "timestamp": time.time()
         }
         writer.write('atlas', json.dumps(message, indent=4, default=str))
-        motor.MotorRun(0, self._direction, self._speed)
-        motor.MotorRun(1, self._direction, self._speed)
+        motor.run(0, self._direction, self._speed)
+        motor.run(1, self._direction, self._speed)
         time.sleep(self._duration)
         print("Stopping.")
-        motor.MotorStop(0)
-        motor.MotorStop(1)
+        motor.stop(0)
+        motor.stop(1)
         message['reading'] = {
             "value": 0,
             "timestamp": time.time()

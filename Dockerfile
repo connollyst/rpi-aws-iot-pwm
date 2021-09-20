@@ -11,9 +11,9 @@ RUN sudo apt-get update && \
 COPY requirements.txt /
 RUN python3 -m pip install -r requirements.txt
 
-COPY src/main/python/main.py /
-COPY src/main/python/App.py /
-COPY src/main/python/AwsIotCore.py /
-COPY src/main/python/PCA9685.py /
+COPY src/main/python/*.py /
+COPY src/main/python/aws/*.py /aws/
+COPY src/main/python/pwm/*.py /pwm/
 COPY certs/ /certs/
+
 CMD [ "python3", "./main.py" ]
