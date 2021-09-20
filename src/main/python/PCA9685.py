@@ -1,8 +1,10 @@
 #!/usr/bin/python
 
-import time
 import math
+import time
+
 import smbus
+
 
 # ============================================================================
 # Raspi PCA9685 16-Channel PWM Servo Driver
