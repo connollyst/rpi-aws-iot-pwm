@@ -29,25 +29,27 @@ AWS IoT connected relay automation for Raspberry Pi
 
 # Docker
 
+## Install Docker on Raspberry Pi
+
+- `> sudo apt-get update && sudo apt-get upgrade && sudo reboot`
+- `> curl -sSL https://get.docker.com | sh`
+- `> sudo groupadd docker`
+- `> sudo usermod -aG docker ${USER}`
+
 ## Build & Push the Docker Image
 
-- `> docker build -t connollyst/rpi-aws-iot-pwm .`
-- `> docker push connollyst/rpi-aws-iot-pwm`
+- `> docker build -t connollyst/rpi-aws-iot-pwm . &&  docker run connollyst/rpi-aws-iot-pwm`
+- `> docker build -t connollyst/rpi-aws-iot-pwm . &&  docker push connollyst/rpi-aws-iot-pwm`
 
 - `> docker build -t connollyst/rpi-aws-iot-pwm:latest -t connollyst/rpi-aws-iot-pwm:v1.2.3 .`
 - `> docker push connollyst/rpi-aws-iot-pwm:latest && docker push connollyst/rpi-aws-iot-pwm:v1.2.3`
 
-## Install Docker on Raspberry Pi
-
-- `> sudo apt-get update && sudo apt-get upgrade && sudo reboot`
-- `> curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh`
-
 ## Pull the Docker Image
 
-- `> sudo docker pull connollyst/rpi-aws-iot-pwm:latest`
-- `> sudo docker run --privileged connollyst/rpi-aws-iot-pwm`
-- `> sudo docker run --device /dev/gpiomem connollyst/rpi-aws-iot-relay`
-- `> sudo docker run --device /dev/i2c-0 --device /dev/i2c-1 connollyst/rpi-aws-iot-relay`
+- `> docker pull connollyst/rpi-aws-iot-pwm:latest`
+- `> docker run --privileged connollyst/rpi-aws-iot-pwm`
+- `> docker run --device /dev/gpiomem connollyst/rpi-aws-iot-pwm`
+- `> docker run --device /dev/i2c-0 --device /dev/i2c-1 connollyst/rpi-aws-iot-pwm`
   - Doesn't work: `"/dev/i2c-0": no such file or directory`
   - Try I2C detection instead?
 
