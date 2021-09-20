@@ -1,4 +1,4 @@
-FROM balenalib/raspberry-pi-debian:buster-build-20210912
+FROM balenalib/raspberry-pi-debian:bullseye-build-20210912
 
 MAINTAINER Sean Connolly <connolly.st@gmail.com>
 
