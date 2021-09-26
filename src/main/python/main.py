@@ -2,4 +2,7 @@
 from App import App
 
 if __name__ == '__main__':
-    App().start()
+    speed = 20
+    duration = 30
+    frequency = 60
+    App(speed, duration, frequency).start()

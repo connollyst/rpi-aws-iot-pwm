@@ -2,18 +2,23 @@ import json
 import time
 from uuid import uuid4
 
+from Logger import get_logger
 from aws.AwsIotCore import AwsIotCore
 from pwm.MotorDriver import MotorDriver
 
 
 class App:
-    AWS_ENDPOINT = 'a12dev37b8fhwi-ats.iot.us-west-2.amazonaws.com'
+    LOGGER = get_logger(__name__)
 
-    def __init__(self):
-        self._direction = 'forward'
-        self._speed = 20
-        self._duration = 30
-        self._frequency = 60
+    AWS_ENDPOINT = 'a12dev37b8fhwi-ats.iot.us-west-2.amazonaws.com'
+    AWS_IOT_MQTT_TOPIC = 'atlas'  # 'iot/devices/readings'
+    AWS_CLIENT_ID = "iot-motor-" + str(uuid4())
+
+    def __init__(self, speed, duration, frequency):
+        self._direction = MotorDriver.Direction.FORWARD
+        self._speed = speed
+        self._duration = duration
+        self._frequency = frequency
 
     def start(self):
         while True:
@@ -23,7 +28,7 @@ class App:
     def _run(self):
         print('Running {} @ {} for {}s'.format(self._direction, self._speed, self._duration))
         writer = AwsIotCore(self.AWS_ENDPOINT)
-        writer.connect("tests-" + str(uuid4()))
+        writer.connect(self.AWS_CLIENT_ID)
         message = {
             "address": "N/A",
             "addressType": "N/A",
@@ -37,7 +42,7 @@ class App:
             "value": self._speed,
             "timestamp": time.time()
         }
-        writer.write('atlas', json.dumps(message, indent=4, default=str))
+        writer.write(self.AWS_IOT_MQTT_TOPIC, json.dumps(message, indent=4, default=str))
         motor.run(0, self._direction, self._speed)
         motor.run(1, self._direction, self._speed)
         time.sleep(self._duration)
@@ -48,4 +53,4 @@ class App:
             "value": 0,
             "timestamp": time.time()
         }
-        writer.write('atlas', json.dumps(message, indent=4, default=str))
+        writer.write(self.AWS_IOT_MQTT_TOPIC, json.dumps(message, indent=4, default=str))
