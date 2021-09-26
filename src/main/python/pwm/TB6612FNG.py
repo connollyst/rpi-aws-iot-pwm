@@ -4,7 +4,7 @@ from enum import Enum
 from PCA9685 import PCA9685
 
 
-class MotorDriver:
+class TB6612FNG:
     class Direction(Enum):
         FORWARD = 'forward'
         REVERSE = 'backward'
