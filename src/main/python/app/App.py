@@ -34,6 +34,8 @@ class App:
         writer.write(self.AWS_IOT_MQTT_TOPIC, json.dumps(motor.to_json(), indent=4, default=str))
         motor.drive(0, self._speed, self._direction)
         motor.drive(1, self._speed, self._direction)
+        # TODO do in background thread (shadow?)
+        writer.write(self.AWS_IOT_MQTT_TOPIC, json.dumps(motor.to_json(), indent=4, default=str))
         time.sleep(self._duration)
         self.LOGGER.info("Stopping.")
         motor.stop(0)
