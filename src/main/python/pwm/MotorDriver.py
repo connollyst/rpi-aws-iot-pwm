@@ -3,7 +3,7 @@ from .Motor import Motor
 
 class MotorDriver:
 
-    def run(self, motor, speed, direction=Motor.Direction.FORWARD):
+    def drive(self, motor, speed, direction=Motor.Direction.FORWARD):
         pass
 
     def stop(self, motor):

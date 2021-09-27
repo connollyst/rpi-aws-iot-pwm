@@ -20,17 +20,17 @@ class TB6612FNG(MotorDriver):
         self._pwm = PCA9685(0x40)
         self._pwm.set_pwm_frequency(self.PWM_FREQUENCY)
 
-    def run(self, motor, speed, direction=Motor.Direction.FORWARD):
+    def drive(self, motor, speed, direction=Motor.Direction.FORWARD):
         if speed > self.MAX_SPEED:
             raise Exception('Speed parameter {} exceeds max {}.', speed, self.MAX_SPEED)
         if motor == 0:
-            self._run(self.PWMA, self.AIN1, self.AIN2, direction, speed)
+            self._drive(self.PWMA, self.AIN1, self.AIN2, direction, speed)
         elif motor == 1:
-            self._run(self.PWMB, self.BIN1, self.BIN2, direction, speed)
+            self._drive(self.PWMB, self.BIN1, self.BIN2, direction, speed)
         else:
             raise Exception('Motor parameter out of bounds, expected 0 or 1 but received {}', motor)
 
-    def _run(self, pwm, in1, in2, direction, speed):
+    def _drive(self, pwm, in1, in2, direction, speed):
         if direction == Motor.Direction.FORWARD:
             self._pwm.set_duty_cycle(pwm, speed)
             self._pwm.set_level(in1, 0)
