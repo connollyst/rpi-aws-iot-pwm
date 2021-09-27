@@ -12,7 +12,9 @@ class AwsIotCore:
                  endpoint,
                  cert_filepath='certs/device.pem.crt',
                  ca_filepath='certs/Amazon-root-CA-1.pem',
-                 private_key_filepath='certs/private.pem.key'):
+                 private_key_filepath='certs/private.pem.key',
+                 logger=None):
+        self._logger = logger
         self._endpoint = endpoint
         self._cert_filepath = cert_filepath
         self._ca_filepath = ca_filepath
@@ -49,19 +51,19 @@ class AwsIotCore:
             clean_session=False,
             keep_alive_secs=30,
         )
-        print("Connecting to {} with client ID '{}'...".format(self.endpoint, client_id))
+        self._logger.info("Connecting to {} with client ID '{}'...".format(self.endpoint, client_id))
         connect_future = mqtt_connection.connect()
         connect_future.result()
         self._connection = mqtt_connection
-        print("Connected!")
+        self._logger.info("Connected to AWS!")
 
     def write(self, topic, json):
-        print("Sending to {}: {}".format(topic, json))
+        self._logger.info("Sending to {}: {}".format(topic, json))
         self._connection.publish(topic=topic, payload=json, qos=mqtt.QoS.AT_LEAST_ONCE)
         time.sleep(1)
 
     def disconnect(self):
-        print("Disconnecting from AWS...")
+        self._logger.info("Disconnecting from AWS...")
         disconnect_future = self._connection.disconnect()
         disconnect_future.result()
-        print("Disconnected from AWS.")
+        self._logger.info("Disconnected from AWS.")
