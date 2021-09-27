@@ -12,8 +12,9 @@ COPY requirements.txt /
 RUN python3 -m pip install -r requirements.txt
 
 COPY src/main/python/*.py /
-COPY src/main/python/aws/*.py /aws/
-COPY src/main/python/pwm/*.py /pwm/
+COPY src/main/python/app/*.py /app/
+COPY src/main/python/app/aws/*.py /app/aws/
+COPY src/main/python/app/pwm/*.py /app/pwm/
 COPY certs/ /certs/
 
 CMD [ "python3", "./main.py" ]

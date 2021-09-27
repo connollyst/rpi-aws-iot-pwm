@@ -2,14 +2,14 @@ import json
 import time
 from uuid import uuid4
 
-from .Logger import get_logger
+# from Logger import Logger.get_logger
 from .aws.AwsIotCore import AwsIotCore
 from .pwm.Motor import Motor
 from .pwm.TB6612FNG import TB6612FNG
 
 
 class App:
-    LOGGER = get_logger(__name__)
+    # LOGGER = get_logger(__name__)
 
     AWS_ENDPOINT = 'a12dev37b8fhwi-ats.iot.us-west-2.amazonaws.com'
     AWS_IOT_MQTT_TOPIC = 'atlas'  # 'iot/devices/readings'

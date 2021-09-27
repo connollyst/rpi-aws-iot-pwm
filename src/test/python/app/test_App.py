@@ -1,6 +1,6 @@
 import unittest
 
-from ...main.python.App import App
+import src.main.python.app
 
 
 class test_App(unittest.TestCase):
@@ -11,6 +11,6 @@ class test_App(unittest.TestCase):
         duration = 30
         frequency = 60
         # When
-        app = App(speed, duration, frequency)
+        src.main.python.app.App(speed, duration, frequency)
         # Then
         # self.assertEqual(0, motor_driver.to_json()['reading']['value'])
