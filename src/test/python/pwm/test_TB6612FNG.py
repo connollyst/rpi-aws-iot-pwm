@@ -1,6 +1,6 @@
 import unittest
 
-from main.python.pwm.TB6612FNG import TB6612FNG
+from src.main.python.pwm.TB6612FNG import TB6612FNG
 
 
 class test_TB6612FNG(unittest.TestCase):

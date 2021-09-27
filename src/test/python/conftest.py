@@ -3,7 +3,7 @@ import sys
 import fake_rpi
 
 
-def pytest_configure(_):
+def pytest_configure(config):
     _stub_i2c_interface()
 
 

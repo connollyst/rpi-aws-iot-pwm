@@ -2,9 +2,10 @@ import json
 import time
 from uuid import uuid4
 
-from Logger import get_logger
-from aws.AwsIotCore import AwsIotCore
-from pwm.TB6612FNG import TB6612FNG
+from .Logger import get_logger
+from .aws.AwsIotCore import AwsIotCore
+from .pwm.Motor import Motor
+from .pwm.TB6612FNG import TB6612FNG
 
 
 class App:
@@ -15,7 +16,7 @@ class App:
     AWS_CLIENT_ID = "iot-motor-" + str(uuid4())
 
     def __init__(self, speed, duration, frequency):
-        self._direction = TB6612FNG.Direction.FORWARD
+        self._direction = Motor.Direction.FORWARD
         self._speed = speed
         self._duration = duration
         self._frequency = frequency
