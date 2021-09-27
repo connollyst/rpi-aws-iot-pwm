@@ -28,7 +28,7 @@ class App:
 
     def _run(self):
         self.LOGGER.info('Running {} @ {} for {}s'.format(self._direction, self._speed, self._duration))
-        writer = AwsIotCore(self.AWS_ENDPOINT)
+        writer = AwsIotCore(endpoint=self.AWS_ENDPOINT, logger=self.LOGGER)
         writer.connect(self.AWS_CLIENT_ID)
         motor = TB6612FNG()
         writer.write(self.AWS_IOT_MQTT_TOPIC, json.dumps(motor.to_json(), indent=4, default=str))
