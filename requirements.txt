@@ -3,3 +3,5 @@ awsiotsdk==1.7.1
 # Raspberry Pi Dependencies
 smbus
 fake_rpi
+# Python Dependencies
+pytest
