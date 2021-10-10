@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - pip install -r requirements.txt
+  build:
+    commands:
+      - python -m pytest src/test/python/app
+artifacts:
+  files:
+    - '**/*'
+  base-directory: src/main/python
