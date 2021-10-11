@@ -12,4 +12,4 @@ reports:
   junit:
     files:
       - '**/*'
-    base-directory: 'target/reports/junit.xml'
+    base-directory: 'target/reports'
