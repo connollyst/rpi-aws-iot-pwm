@@ -1,13 +1,16 @@
 version: 0.2
 
 phases:
-  pre_build:
+  install:
     commands:
       - pip install -r requirements.txt
-  build:
+  pre_build:
     commands:
-      - python -m pytest src/test/python/app
-artifacts:
-  files:
-    - '**/*'
-  base-directory: src/main/python
+      - python -m pytest --junitxml target/reports/junit.xml src/test/python/app
+
+reports:
+  junit:
+    files:
+      - '**/*'
+    base-directory:
+      - 'target/reports/junit.xml'
